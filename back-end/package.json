@@ -1,0 +1,23 @@
+{
+  "name": "social_media",
+  "version": "1.0.0",
+  "description": "Social Web Application Project Introduction This project is a collaboration between three remote developers of different nationalities - Ukrainian, French, and Indian. Throughout the project, the team communicated in English to develop a social web application using cutting-edge technologies such as React, CSS, JavaScript, PostgreSQL, Express, HTTP, and WebSocket. The primary focus of this project is on backend development.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.1.5",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.10.0"
+  }
+}

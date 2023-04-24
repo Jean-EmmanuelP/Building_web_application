@@ -1,0 +1,17 @@
+// signup
+// login
+// post
+// comment
+// like
+// search
+// ---------------
+
+// messages
+// songs
+
+// recommendations
+
+//---------------
+// stories
+// calling
+// 
