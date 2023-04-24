@@ -1,0 +1,37 @@
+do the endpoints
+
+Table: User
+
+Create a new user: POST /users
+Retrieve a user by id: GET /users/:id
+Update a user: PUT /users/:id
+Delete a user: DELETE /users/:id
+List all users: GET /users
+
+Table: Post
+
+Create a new post: POST /posts
+Retrieve a post by id: GET /posts/:id
+Update a post: PUT /posts/:id
+Delete a post: DELETE /posts/:id
+List all posts: GET /posts
+List all posts by a specific user: GET /users/:user_id/posts
+
+Table: Comment
+
+Create a new comment: POST /comments
+Retrieve a comment by id: GET /comments/:id
+Update a comment: PUT /comments/:id
+Delete a comment: DELETE /comments/:id
+List all comments: GET /comments
+List all comments for a specific post: GET /posts/:post_id/comments
+List all comments by a specific user: GET /users/:user_id/comments
+
+Table: Like
+
+Create a new like: POST /likes
+Retrieve a like by id: GET /likes/:id
+Delete a like: DELETE /likes/:id
+List all likes: GET /likes
+List all likes for a specific post: GET /posts/:post_id/likes
+List all likes by a specific user: GET /users/:user_id/likes
