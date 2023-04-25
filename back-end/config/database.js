@@ -1,6 +1,11 @@
 const { Sequelize } = require('sequelize');
 const { Pool } = require("pg");
-const createUserModel = require('./models/user');
+
+// Import models
+const createUserModel = require('../models/userModel');
+const createPostModel = require('../models/postModel');
+const createCommentModel = require('../models/commentModel');
+const createLikeModel = require('../models/likeModel');
 
 require("dotenv").config();
 
@@ -22,7 +27,16 @@ const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, pr
   ssl: { rejectUnauthorized: false },
 });
 
+// Initialize models
 const User = createUserModel(sequelize);
+const Post = createPostModel(sequelize);
+const Comment = createCommentModel(sequelize);
+const Like = createLikeModel(sequelize);
+
+// Set up associations
+Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
+User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
+
 
 // Returns the query's response
 const query = async (text, params) => {
@@ -36,32 +50,8 @@ const query = async (text, params) => {
 module.exports = {
   query,
   User,
+  Post,
+  Comment,
+  Like,
+  sequelize,
 };
-// the code done by phind 
-// config/database.js
-// const { Sequelize } = require('sequelize');
-
-// const sequelize = new Sequelize('your_database_name', 'your_username', 'your_password', {
-//   host: 'your_host',
-//   dialect: 'mysql',
-// });
-
-// module.exports = sequelize;
-
-// Test the connection
-// sequelize.authenticate()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch((error) => {
-//     console.error('Unable to connect to the database:', error);
-//   });
-
-// // Sync models with the database
-// sequelize.sync({ alter: true })
-//   .then(() => {
-//     console.log('Tables have been created or updated.');
-//   })
-//   .catch((error) => {
-//     console.error('Unable to sync with the database:', error);
-//   });

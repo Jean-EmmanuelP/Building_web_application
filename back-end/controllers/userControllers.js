@@ -1,5 +1,5 @@
 // controllers/userController.js
-const User = require('../models/user');
+const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 const hashPassword = async (password) => {
