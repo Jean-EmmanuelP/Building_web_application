@@ -3,12 +3,13 @@ const http = require('http');
 const server = http.createServer(app);
 const port = process.env.PORT || 4001;
 
-const { sequelize } = require('./config/database');
+const { sequelize, showTables } = require('./config/database');
 
 sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     console.log('Database connection has been established successfully.');
+    await showTables();
   })
   .catch((error) => {
     console.error('Unable to connect to the database:', error);
