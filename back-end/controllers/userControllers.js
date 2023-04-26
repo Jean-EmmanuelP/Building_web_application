@@ -45,6 +45,16 @@ exports.createUser = async (req, res) => {
       username
     });
 
+    const token = jwt.sign({user_id: newUser.id, email: newUser.email}, process.env.TOKEN_KEY);
+    if (!token) {
+      return res.status(400).json({error: "Error occured with token"});
+    }
+
+    // add the token to the user
+    const updatedUser = await User.findByPk(newUser.id);
+    updatedUser.token = token || updatedUser.token;
+    await updatedUser.save();
+
     res.status(201).json({ message: 'User created successfully', user: newUser });
 
   } catch (error) {
@@ -55,36 +65,77 @@ exports.createUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({error: "All input are required."});
+      return res.status(400).json({ error: "All input are required." });
     }
 
-    const userData = await User.findOne({where: {email}});
+    const userData = await User.findOne({ where: { email } });
 
     if (!userData) {
-      return res.status(400).json({error: "Invalid email"});
+      return res.status(400).json({ error: "Invalid email" });
     }
 
-    const isPasswordValid = await bcrypt.compare(userData.password, password);
+    const isPasswordValid = await bcrypt.compare(password, userData.password);
     if (!isPasswordValid) {
-      return res.status(400).json({error: "Invalid password"});
+      return res.status(400).json({ error: "Invalid password" });
     }
 
-    const token = jwt.sign({user_id: userData.id, email: userData.email}, process.env.TOKEN_KEY);
-
+    const token = jwt.sign({ user_id: userData.id, email: userData.email }, process.env.TOKEN_KEY);
     if (!token) {
-      return res.status(400).json({error: "Error occured with token"});
+      return res.status(400).json({ error: "Error occurred with token" });
     }
 
-    return res.status(200).json({message: "User is logged in", token});
+    // Add the token to the user
+    const updatedUser = await User.findByPk(userData.id);
+    updatedUser.token = token || updatedUser.token;
+    await updatedUser.save();
+
+    return res.status(200).json({ message: "User is logged in", token });
 
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({error: "Error occured during user's authorization"});
+    return res.status(500).json({ error: "Error occurred during user's authorization" });
   }
 }
+
+// exports.loginUser = async (req, res) => {
+//   try {
+//     const {email, password} = req.body;
+
+//     if (!email || !password) {
+//       return res.status(400).json({error: "All input are required."});
+//     }
+
+//     const userData = await User.findOne({where: {email}});
+
+//     if (!userData) {
+//       return res.status(400).json({error: "Invalid email"});
+//     }
+
+//     const isPasswordValid = await bcrypt.compare(userData.password, password);
+//     if (!isPasswordValid) {
+//       return res.status(400).json({error: "Invalid password"});
+//     }
+
+//     const token = jwt.sign({user_id: newUser.id, email: newUser.email}, process.env.TOKEN_KEY);
+//     if (!token) {
+//       return res.status(400).json({error: "Error occured with token"});
+//     }
+
+//     // add the token to the user
+//     const updatedUser = await User.findByPk(userData.id);
+//     updatedUser.token = token || updatedUser.token;
+//     await updatedUser.save();
+    
+//     return res.status(200).json({message: "User is logged in", token});
+
+//   } catch (error) {
+//     console.error(error.message);
+//     return res.status(500).json({error: "Error occured during user's authorization"});
+//   }
+// }
 
 exports.getUserById = async (req, res) => {
   try {

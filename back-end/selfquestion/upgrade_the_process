@@ -157,19 +157,18 @@ usersRouter.delete('/users/:id', auth, deleteUser); // Delete a user: DELETE /us
 usersRouter.get('/users', auth, getAllUsers); // List all users: GET /users
 
 module.exports = usersRouter;
- a present que ma connexion a la base de donnee fonctionne 
- bien, ce que je souhaite faire c'est tester toutes les routes 
- de mon userRoute file pour m'assurer que tout fonctionne bien. 
- Peux tu me donner faire tout les JSON Content que j'ai besoin et 
- me dire le return status pour que je puisse tout tester sans probleme. Donne moi la reponse qui devrait y avoir 
+now that my connection to the database is working fine, what I want to do 
+ what I want to do is test all the routes in my userRoute file to make sure 
+ in my userRoute file to make sure everything is working fine. 
+ Can you give me all the JSON content I need and tell me the 
+ and tell me the return status so I can test everything without any problem. Give me the answer that should be there 
  output :
- (il ma donne des exemples de requete a faire le json content et le resultat attendu)
+ (it gives me examples of request to make the json content and the expected result)
 
- Que peut on tirer de ceci ? Grace a cela, cela me permet de savoir exactement quel sont les resultats obtenu et de connaitre les problemes quil y a dans mes controllers 
- Ainsi je peux les ameliorer de maniere significative et rapidement !
+ What can we get from this? Thanks to this, I can know exactly what the results are and what problems there are in my controllers 
+ So I can improve them significantly and quickly!
 
 
- CONCLUSION : grace a la reponse quil va me donner je vais pouvoir trouver les failles de la reponse et lui demander de refaire le controlleur afin que la reponse soit objectivement bonne en fonction de nos objectifs
- Ceci nous permettra davancer rapidement. En trouvant des moyens dameliorer le processus nous pourrons aller plus vite en
- faisant du reverse engineering ! cest a dire voir la solution et voir comment atteindre la solution de la maniere la plus efficace
- 
+ CONCLUSION : thanks to the answer he will give me I will be able to find the flaws in the answer and ask him to redo the controller so that the answer is objectively good according to our objectives
+ This will allow us to move forward quickly. By finding ways to improve the process we can go faster by
+ reverse engineering! i.e. seeing the solution and seeing how to reach the solution in the most efficient way

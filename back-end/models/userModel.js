@@ -28,6 +28,19 @@ const createUserModel = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      field: 'created_at',
+    }
+  }, {
+    freezeTableName: true,
+    timestamps: false,
   });
 
   return User;
