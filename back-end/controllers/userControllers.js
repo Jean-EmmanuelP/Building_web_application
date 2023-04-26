@@ -92,7 +92,7 @@ exports.loginUser = async (req, res) => {
     updatedUser.token = token || updatedUser.token;
     await updatedUser.save();
 
-    return res.status(200).json({ message: "User is logged in", token });
+    return res.status(200).json({ message: "User is logged in", token, user: userData });
 
   } catch (error) {
     console.error(error.message);
