@@ -1,6 +1,10 @@
 // controllers/userController.js
-const User = require('../models/userModel');
+const { sequelize } = require('../config/database');
+const createUserModel = require('../models/userModel');
+const User = createUserModel(sequelize);
 const bcrypt = require('bcrypt');
+
+const jwt = require("jsonwebtoken");
 
 const hashPassword = async (password) => {
   const saltRounds = 10;
@@ -8,38 +12,31 @@ const hashPassword = async (password) => {
   return hashedPassword;
 }
 
-// Create a new user: POST /users
 exports.createUser = async (req, res) => {
   try {
     const { email, password, first_name, last_name, username } = req.body;
-    
-    // Validate the input data
+
     if (!email || !password || !first_name || !last_name || !username) {
       return res.status(400).json({ error: 'All fields are required' });
     }
-    
-    // Validate email format
+
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
-    
-    // Validate password strength
+
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).json({ error: 'Password must be at least 8 characters long, contain at least one letter and one number' });
     }
-    
-    // Check if the user already exists
+
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(409).json({ error: 'User with this email already exists' });
     }
-    
-    // Hash the password
+
     const hashedPassword = await hashPassword(password);
-    
-    // Create a new user
+
     const newUser = await User.create({
       email,
       password: hashedPassword,
@@ -47,17 +44,48 @@ exports.createUser = async (req, res) => {
       last_name,
       username
     });
-    
-    // Send the response
+
     res.status(201).json({ message: 'User created successfully', user: newUser });
-    
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Something went wrong. Please try again later' });
   }
 };
 
-// Retrieve a user by id: GET /users/:id
-// userController.js
+exports.loginUser = async (req, res) => {
+  try {
+    const {email, password} = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({error: "All input are required."});
+    }
+
+    const userData = await User.findOne({where: {email}});
+
+    if (!userData) {
+      return res.status(400).json({error: "Invalid email"});
+    }
+
+    const isPasswordValid = await bcrypt.compare(userData.password, password);
+    if (!isPasswordValid) {
+      return res.status(400).json({error: "Invalid password"});
+    }
+
+    const token = jwt.sign({user_id: userData.id, email: userData.email}, process.env.TOKEN_KEY);
+
+    if (!token) {
+      return res.status(400).json({error: "Error occured with token"});
+    }
+
+    return res.status(200).json({message: "User is logged in", token});
+
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({error: "Error occured during user's authorization"});
+  }
+}
+
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -66,57 +94,58 @@ exports.getUserById = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-// Update a user: PUT /users/:id
 exports.updateUser = async (req, res) => {
-  try {
-    const { email, password, first_name, last_name, username } = req.body;
-    const user = await User.findByPk(req.params.id);
+try {
+const { email, password, first_name, last_name, username } = req.body;
+const user = await User.findByPk(req.params.id);
+if (!user) {
+  return res.status(404).json({ error: 'User not found' });
+}
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+user.email = email || user.email;
+user.password = password ? await hashPassword(password) : user.password;
+user.first_name = first_name || user.first_name;
+user.last_name = last_name || user.last_name;
+user.username = username || user.username;
 
-    // Update the user details
-    user.email = email || user.email;
-    user.password = password ? await hashPassword(password) : user.password;
-    user.first_name = first_name || user.first_name;
-    user.last_name = last_name || user.last_name;
-    user.username = username || user.username;
-
-    await user.save();
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+await user.save();
+res.json(user);
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error' });
   }
-};
-
-// Delete a user: DELETE /users/:id
-exports.deleteUser = async (req, res) => {
+  };
+  
+  exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    await user.destroy();
-    res.json({ message: 'User deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+  const user = await User.findByPk(req.params.id);
+  if (!user) {
+  return res.status(404).json({ error: 'User not found' });
   }
-};
-
-// List all users: GET /users
-exports.getAllUsers = async (req, res) => {
+  await user.destroy();
+  res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error' });
+  }
+  };
+  
+  exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll();
-    res.json(users);
+  const users = await User.findAll();
+  res.json(users);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error' });
   }
-};
-
-// done just have to check if each function response the good format
-// and if its okay for my frond end teammate
+  };
+  
+  
+  
+  
+  

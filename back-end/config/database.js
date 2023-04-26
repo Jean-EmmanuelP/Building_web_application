@@ -11,20 +11,24 @@ require("dotenv").config();
 
 // Creates the connection between the Postgres database and the NodeJS server.
 const pool = new Pool({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
   ssl: { rejectUnauthorized: false },
 });
 
-const sequelize = new Sequelize(process.env.PG_DATABASE, process.env.PG_USER, process.env.PG_PASSWORD, {
-  host: process.env.PG_HOST,
-  port: process.env.PG_PORT,
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   dialect: 'postgres',
   logging: false,
-  ssl: { rejectUnauthorized: false },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Set this to `true` if you are using a custom SSL certificate
+    },
+  },
 });
 
 // Initialize models
@@ -36,7 +40,6 @@ const Like = createLikeModel(sequelize);
 // Set up associations
 Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
 User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
-
 
 // Returns the query's response
 const query = async (text, params) => {

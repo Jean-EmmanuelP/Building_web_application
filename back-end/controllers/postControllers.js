@@ -1,8 +1,11 @@
-const Post = require('../models/Post');
+const Post = require('../models/postModel');
 
+// return for each response
+// check if title is a string
+// check if this is valid, content must be a image
 const createNewPost = async (req, res) => {
-  const { title, body, userId } = req.body;
-  const newPost = new Post({ title, body, userId });
+  const { title, content, userId } = req.body;
+  const newPost = new Post({ title, content, userId });
   await newPost.save();
   res.status(201).json(newPost);
 };
