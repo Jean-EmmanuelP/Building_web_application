@@ -1,5 +1,5 @@
 const Like = require('../models/Like');
-
+// return res
 // Create a new like
 exports.createNewLike = async (req, res) => {
   try {
