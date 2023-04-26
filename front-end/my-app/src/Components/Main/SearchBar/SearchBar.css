@@ -1,0 +1,7 @@
+.SearchBar {
+  grid-column: 2;
+  grid-row: 1;
+  /* width: 250px; */
+  height: 8vh;
+  background-color: aqua;
+}
