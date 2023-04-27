@@ -4,10 +4,13 @@ import Cookies from "js-cookie";
 
 const Login = () => {
   const redirect = useNavigate();
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: ""
+  });
 
   const onChangeSetInputs = (e) => {
-    console.log(e.target);
+    setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
   const onSubmitLogin = async (e) => {
@@ -28,6 +31,7 @@ const Login = () => {
       );
       const parsedRes = await response.json();
       if (response.ok) {
+        console.log(parsedRes);
         Cookies.set("token", parsedRes.token);
         Cookies.set("id", parsedRes.user.id);
         Cookies.set("first_name", parsedRes.user.first_name);
@@ -36,16 +40,16 @@ const Login = () => {
         redirect("/");
       }
     } catch (error) {
-      console.error(error.message);
+      console.log(error);
     }
   };
 
   return (
     <div>
       <h1>Login</h1>
-      <form onChange={onChangeSetInputs}>
-        <input type="email" name="email" />
-        <input type="password" name="password" />
+      <form onSubmit={onSubmitLogin}>
+        <input onChange={onChangeSetInputs} type="email" name="email" />
+        <input onChange={onChangeSetInputs} type="password" name="password" />
         <button type="submit" name="login">
           Log in
         </button>

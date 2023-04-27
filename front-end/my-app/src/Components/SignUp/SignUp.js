@@ -8,7 +8,7 @@ const SignUp = () => {
     first_name: "",
     last_name: "",
     email: "",
-    age: "",
+    username: "",
     password: "",
   });
 
@@ -19,8 +19,8 @@ const SignUp = () => {
   const onSubmitSignUp = async (e) => {
     e.preventDefault();
     try {
-      const { first_name, last_name, email, age, password } = inputs;
-      if (!first_name || !last_name || !email || !age || !password)
+      const { first_name, last_name, email, password, username } = inputs;
+      if (!first_name || !last_name || !email || !username || !password)
         return console.log("All inputs are required.");
 
       const body = inputs;
@@ -55,7 +55,7 @@ const SignUp = () => {
         <input onChange={onChangeSetInputs} type="text" name="first_name" />
         <input onChange={onChangeSetInputs} type="text" name="last_name" />
         <input onChange={onChangeSetInputs} type="email" name="email" />
-        <input onChange={onChangeSetInputs} type="age" name="age" />
+        <input onChange={onChangeSetInputs} type="text" name="username" />
         <input onChange={onChangeSetInputs} type="password" name="password" />
         <button type="submit" name="sign up">
           Sign up
