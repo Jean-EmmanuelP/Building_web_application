@@ -2,18 +2,23 @@ const createLikeModel = require('../models/likeModel');
 const { sequelize } = require('../config/database');
 const Like = createLikeModel(sequelize);
 
-// Create a new like
+
+// THE MAIN PROBLEM ARE THE CONNEXION BETWEEN THE INDEXES 
+// BAD POINT : FIRST STARTING FROM 2 OR FROM 5 
+// GOOD POINT : ALL IS LINKED AND FUNCTIONAL
+// work but the problem is the key post_id = 1 problem with the links between the id
 const createNewLike = async (req, res) => {
   try {
     const like = new Like(req.body);
     await like.save();
     return res.status(201).json(like);
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ error: error.message });
   }
 };
 
-// Retrieve a like by id
+// Retrieve a like by id works but the problem is the id
 const retrieveLike = async (req, res) => {
   try {
     const like = await Like.findByPk(req.params.id);
@@ -26,7 +31,7 @@ const retrieveLike = async (req, res) => {
   }
 };
 
-// Delete a like
+// Delete a like but problem of id same thing
 const deleteLike = async (req, res) => {
   try {
     const like = await Like.findByPk(req.params.id);
@@ -40,7 +45,7 @@ const deleteLike = async (req, res) => {
   }
 };
 
-// List all likes
+// List all likes is working
 const listAllLikes = async (req, res) => {
   try {
     const likes = await Like.findAll();

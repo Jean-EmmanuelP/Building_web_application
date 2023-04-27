@@ -50,7 +50,7 @@ Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
 User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
 
 // Comment associations
-Comment.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
+Comment.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'author' });
 User.hasMany(Comment, { foreignKey: 'user_id', sourceKey: 'id' });
 
 Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id' });
