@@ -1,3 +1,4 @@
+Here is my commentControllers.js:
 const Comment = require('../models/commentModel');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
@@ -78,3 +79,32 @@ exports.listAllCommentsByUser = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
+
+
+And here is my commentRoutes.js:
+/*
+
+Create a new comment: POST /comments
+Retrieve a comment by id: GET /comments/:id
+Update a comment: PUT /comments/:id
+Delete a comment: DELETE /comments/:id
+List all comments: GET /comments
+List all comments for a specific post: GET /posts/:post_id/comments
+List all comments by a specific user: GET /users/:user_id/comments
+
+*/
+const commentRouter = require('express').Router();
+const { createNewComment, retrieveComment, updateComment, deleteComment, listAllComments, listAllCommentsForPost, listAllCommentsByUser } = require('../controllers/commentControllers');
+
+commentRouter.post('/comments', createNewComment);
+commentRouter.get('/comments/:id', retrieveComment);
+commentRouter.put('/comments/:id', updateComment);
+commentRouter.delete('/comments/:id', deleteComment);
+commentRouter.get('/comments', listAllComments);
+commentRouter.get('/posts/:post_id/comments', listAllCommentsForPost);
+commentRouter.get('/users/:user_id/comments', listAllCommentsByUser);
+
+module.exports = commentRouter;
+
+
+Using the JSON Body, make requests to test all the routes. Also show me the expected response.

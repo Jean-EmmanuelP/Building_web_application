@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+// const morgan = require('morgan');
 const helmet = require('helmet');
-const morgan = require('morgan');
 require("dotenv").config();
 
 const usersRouter = require("./routes/userRoutes");
+const postRouter = require("./routes/postRoutes");
+const likeRouter = require("./routes/likeRoutes");
+const commentRouter = require("./routes/commentRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -19,5 +22,15 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', usersRouter);
+app.use('/api', postRouter);
+app.use('/api', likeRouter);
+app.use('/api', commentRouter);
+app.use('/api', usersRouter);
+
+// Add error handling middleware
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  });
 
 module.exports = app;

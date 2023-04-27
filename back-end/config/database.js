@@ -49,6 +49,20 @@ const Like = createLikeModel(sequelize);
 Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
 User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
 
+// Comment associations
+Comment.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
+User.hasMany(Comment, { foreignKey: 'user_id', sourceKey: 'id' });
+
+Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id' });
+Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id' });
+
+// Like associations
+Like.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
+User.hasMany(Like, { foreignKey: 'user_id', sourceKey: 'id' });
+
+Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id' });
+Post.hasMany(Like, { foreignKey: 'post_id', sourceKey: 'id' });
+
 // Returns the query's response
 const query = async (text, params) => {
   const start = Date.now();

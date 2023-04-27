@@ -26,7 +26,7 @@ const createCommentModel = (sequelize) => {
     },
   }, {
     timestamps: false,
-    tableName: 'comments',
+    tableName: 'Comment',
   });
 
   return Comment;

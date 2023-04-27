@@ -22,7 +22,7 @@ const createLikeModel = (sequelize) => {
     },
   }, {
     timestamps: false,
-    tableName: 'likes',
+    tableName: 'Like',
   });
 
   return Like;

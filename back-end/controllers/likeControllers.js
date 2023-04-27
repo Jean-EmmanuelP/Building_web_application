@@ -1,68 +1,80 @@
-const Like = require('../models/Like');
-// return res
+const createLikeModel = require('../models/likeModel');
+const { sequelize } = require('../config/database');
+const Like = createLikeModel(sequelize);
+
 // Create a new like
-exports.createNewLike = async (req, res) => {
+const createNewLike = async (req, res) => {
   try {
     const like = new Like(req.body);
     await like.save();
-    res.status(201).json(like);
+    return res.status(201).json(like);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
 // Retrieve a like by id
-exports.retrieveLike = async (req, res) => {
+const retrieveLike = async (req, res) => {
   try {
-    const like = await Like.findById(req.params.id);
+    const like = await Like.findByPk(req.params.id);
     if (!like) {
       return res.status(404).json({ error: 'Like not found' });
     }
-    res.json(like);
+    return res.json(like);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
 // Delete a like
-exports.deleteLike = async (req, res) => {
+const deleteLike = async (req, res) => {
   try {
-    const like = await Like.findByIdAndDelete(req.params.id);
+    const like = await Like.findByPk(req.params.id);
     if (!like) {
       return res.status(404).json({ error: 'Like not found' });
     }
-    res.json({ message: 'Like deleted' });
+    await like.destroy();
+    return res.json({ message: 'Like deleted' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
 // List all likes
-exports.listAllLikes = async (req, res) => {
+const listAllLikes = async (req, res) => {
   try {
-    const likes = await Like.find();
-    res.json(likes);
+    const likes = await Like.findAll();
+    return res.json(likes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
 // List all likes for a specific post
-exports.listAllLikesForPost = async (req, res) => {
+const listAllLikesForPost = async (req, res) => {
   try {
-    const likes = await Like.find({ post_id: req.params.post_id });
-    res.json(likes);
+    const likes = await Like.findAll({ where: { post_id: req.params.post_id } });
+    return res.json(likes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
 // List all likes by a specific user
-exports.listAllLikesByUser = async (req, res) => {
+const listAllLikesByUser = async (req, res) => {
   try {
-    const likes = await Like.find({ user_id: req.params.user_id });
-    res.json(likes);
+    const likes = await Like.findAll({ where: { user_id: req.params.user_id } });
+    return res.json(likes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
+};
+
+module.exports = {
+  createNewLike,
+  retrieveLike,
+  deleteLike,
+  listAllLikes,
+  listAllLikesForPost,
+  listAllLikesByUser,
 };

@@ -22,7 +22,7 @@ const createPostModel = (sequelize) => {
     }
   }, {
     timestamps: false,
-    tableName: 'posts',
+    tableName: 'Post',
   });
 
   return Post;
