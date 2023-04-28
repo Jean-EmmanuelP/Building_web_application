@@ -6,6 +6,13 @@ const bcrypt = require('bcrypt');
 
 const jwt = require("jsonwebtoken");
 
+/* 
+  file good only problem with token when we delete a user 
+  questionment on the get, put, delete, like someone who has a token 
+  can he delete another user ? is the token unique for each usage
+  like (sudo usage)
+*/
+
 const hashPassword = async (password) => {
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -44,7 +51,7 @@ exports.createUser = async (req, res) => {
       last_name,
       username
     });
-
+    // permet de creer le nouveau token
     const token = jwt.sign({user_id: newUser.id, email: newUser.email}, process.env.TOKEN_KEY);
     if (!token) {
       return res.status(400).json({error: "Error occured with token"});
@@ -55,7 +62,7 @@ exports.createUser = async (req, res) => {
     updatedUser.token = token || updatedUser.token;
     await updatedUser.save();
 
-    res.status(201).json({ message: 'User created successfully', user: newUser });
+    res.status(201).json({ message: 'User created successfully', user: newUser, token });
 
   } catch (error) {
     console.error(error);
