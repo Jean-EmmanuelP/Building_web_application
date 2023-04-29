@@ -3,6 +3,19 @@ const { sequelize } = require('../config/database');
 const createPostModel = require('../models/postModel');
 const Post = createPostModel(sequelize);
 
+/*
+  todo : 
+
+  - createNewPost -> the title should be the description,
+  the content should be the description.
+  - retrievePost -> working well as expected
+  - updatePost -> problem with title, there is no need for the 
+                  title to be here in the body
+  - deletePost -> NTR
+  - listAllPosts -> NTR
+  - listAllPostsFromUser -> NTR
+*/
+
 const createNewPost = async (req, res) => {
   const { title, content, userId } = req.body;
   const newPost = new Post({ title, content, user_id: parseInt(userId) });
@@ -12,7 +25,7 @@ const createNewPost = async (req, res) => {
 
 const retrievePost = async (req, res) => {
   console.log(req.params.id);
-  const post = await Post.findOne({ where: { user_id: userId } });
+  const post = await Post.findOne({ where: { id: req.params.id } });
   if (!post) {
     return res.status(404).json({ message: 'Post not found' });
   }
@@ -67,7 +80,7 @@ And here is my postRoutes.js:
 const postRouter = require('express').Router();
 const { createNewPost, retrievePost, updatePost, deletePost, listAllPosts, listAllPostsFromUser } = require('../controllers/postControllers');
 
-postRouter.post('/posts', createNewPost);
+postRouter.post('/posts', createNewPost); // working
 postRouter.get('/posts/:id', retrievePost);
 postRouter.put('/posts/:id', updatePost);
 postRouter.delete('/posts/:id', deletePost);
@@ -76,6 +89,5 @@ postRouter.get('/posts', listAllPosts);
 postRouter.get('/users/:user_id/posts', listAllPostsFromUser);
 
 module.exports = postRouter;
-
 
 Using the JSON Body, make requests to test all the routes. Also show me the expected response.
