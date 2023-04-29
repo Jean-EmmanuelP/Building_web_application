@@ -1,6 +1,0 @@
-Roadtask :
-- getUserById, updateUser (userController)
-- test every controllers from the postController
-- test every controllers from the likeController
-- test every controllers from the commentController
-- check the demand of my collaborator for like, comment
