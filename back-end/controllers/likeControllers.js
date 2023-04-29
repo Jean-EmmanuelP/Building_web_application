@@ -2,11 +2,15 @@ const createLikeModel = require('../models/likeModel');
 const { sequelize } = require('../config/database');
 const Like = createLikeModel(sequelize);
 
+/* 
+  - createNewlike -> NTR
+  - retrieveLike -> NTR
+  - deleteLike -> NTR
+  - listAllLikes -> NTR
+  - listAllLikesForPost -> NTR
+  - listAllLikesByUser -> NTR
+*/
 
-// THE MAIN PROBLEM ARE THE CONNEXION BETWEEN THE INDEXES 
-// BAD POINT : FIRST STARTING FROM 2 OR FROM 5 
-// GOOD POINT : ALL IS LINKED AND FUNCTIONAL
-// work but the problem is the key post_id = 1 problem with the links between the id
 const createNewLike = async (req, res) => {
   try {
     const like = new Like(req.body);

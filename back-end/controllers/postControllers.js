@@ -2,32 +2,35 @@ const { sequelize } = require('../config/database');
 const createPostModel = require('../models/postModel');
 const Post = createPostModel(sequelize);
 
-// normally all is good !
-// return for each response
-// check if title is a string
-// check if this is valid, content must be a image
-// start with image already
-// return responser
-// createNewPost is working but still dont understand why the firs id start from 5
+/*
+  todo : 
+
+  - createNewPost -> the title should be the description,
+  the content should be the description.
+  - retrievePost -> working well as expected
+  - updatePost -> problem with title, there is no need for the 
+                  title to be here in the body
+  - deletePost -> NTR
+  - listAllPosts -> NTR
+  - listAllPostsFromUser -> NTR
+*/
+
 const createNewPost = async (req, res) => {
   const { title, content, userId } = req.body;
-  // description, image
   const newPost = new Post({ title, content, user_id: parseInt(userId) });
   await newPost.save();
-  res.status(201).json(newPost);
+  return res.status(201).json(newPost);
 };
 
-// this one work now 
 const retrievePost = async (req, res) => {
   console.log(req.params.id);
-  const post = await Post.findOne({ where: { user_id: userId } });
+  const post = await Post.findOne({ where: { id: req.params.id } });
   if (!post) {
     return res.status(404).json({ message: 'Post not found' });
   }
-  res.status(200).json(post);
+  return res.status(200).json(post);
 };
 
-// it work ! lets googogogo, here check also the id of the post
 const updatePost = async (req, res) => {
   const { title, content } = req.body;
   console.log(req.params.id);
@@ -41,26 +44,25 @@ const updatePost = async (req, res) => {
   }
 
   const updatedPost = updatedPosts[0];
-  res.status(200).json(updatedPost);
+  return res.status(200).json(updatedPost);
 };
 
-// we will talk for this
 const deletePost = async (req, res) => {
   const post = await Post.destroy({ where: { id: req.params.id }});
   if (post === 0) {
     return res.status(404).json({ message: 'Post not found' });
   }
-  res.status(200).json({ message: 'Post deleted successfully' });
+  return res.status(200).json({ message: 'Post deleted successfully' });
 };
 
 const listAllPosts = async (req, res) => {
   const posts = await Post.findAll();
-  res.status(200).json(posts);
+  return res.status(200).json(posts);
 };
 
 const listAllPostsFromUser = async (req, res) => {
   const posts = await Post.findAll({ where: { user_id: req.params.user_id } });
-  res.status(200).json(posts);
+  return res.status(200).json(posts);
 };
 
 module.exports = {

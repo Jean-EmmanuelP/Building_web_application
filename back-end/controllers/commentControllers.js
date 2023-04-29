@@ -1,7 +1,9 @@
 const { User, Comment } = require('../config/database');
 
+/* 
+  * -> NTR
+*/
 
-// same problem the comment is working now it is the a problem of index
 exports.createNewComment = async (req, res) => {
   try {
     const comment = await Comment.create(req.body);
