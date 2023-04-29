@@ -1,6 +1,9 @@
 const { sequelize } = require('../config/database');
 const createPostModel = require('../models/postModel');
 const Post = createPostModel(sequelize);
+const cloudinary = require('../config/cloudinaryConfig');
+const upload = require('../config/multerConfig');
+
 
 /*
   todo : 
@@ -8,18 +11,39 @@ const Post = createPostModel(sequelize);
   - createNewPost -> the title should be the description,
   the content should be the description.
   - retrievePost -> working well as expected
-  - updatePost -> problem with title, there is no need for the 
-                  title to be here in the body
+  - updatePost -> NTR
   - deletePost -> NTR
   - listAllPosts -> NTR
   - listAllPostsFromUser -> NTR
 */
 
+const uploadImageToCloudinary = async (file) => {
+  try {
+    const result = await cloudinary.uploader.upload(file.path);
+    return result.secure_url;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to upload image to Cloudinary');
+  }
+};
+
+
 const createNewPost = async (req, res) => {
-  const { title, content, userId } = req.body;
-  const newPost = new Post({ title, content, user_id: parseInt(userId) });
-  await newPost.save();
-  return res.status(201).json(newPost);
+  upload.single('image')(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ error: 'Error uploading image' });
+    }
+    try {
+      const { title, userId } = req.body;
+      const imageUrl = await uploadImageToCloudinary(req.file);
+      const newPost = new Post({ title, content: imageUrl, user_id: parseInt(userId) });
+      await newPost.save();
+      return res.status(201).json(newPost);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ error: error.message });
+    }
+  });
 };
 
 const retrievePost = async (req, res) => {
@@ -32,9 +56,9 @@ const retrievePost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  const { title, content } = req.body;
+  const { content } = req.body;
   console.log(req.params.id);
-  const [updateCount, updatedPosts] = await Post.update({ title, content }, {
+  const [updateCount, updatedPosts] = await Post.update({ content }, {
     where: { id: req.params.id },
     returning: true,
   });
