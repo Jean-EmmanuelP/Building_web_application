@@ -1,6 +1,8 @@
 Here is my commentControllers.js:
 const { User, Comment } = require('../config/database');
 
+
+// same problem the comment is working now it is the a problem of index
 exports.createNewComment = async (req, res) => {
   try {
     const comment = await Comment.create(req.body);
