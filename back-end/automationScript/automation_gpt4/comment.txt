@@ -1,7 +1,6 @@
 Here is my commentControllers.js:
 const { User, Comment } = require('../config/database');
 
-
 exports.createNewComment = async (req, res) => {
   try {
     const comment = await Comment.create(req.body);
@@ -81,19 +80,7 @@ exports.listAllCommentsByUser = async (req, res) => {
   }
 };
 
-
 And here is my commentRoutes.js:
-/*
-
-Create a new comment: POST /comments
-Retrieve a comment by id: GET /comments/:id
-Update a comment: PUT /comments/:id
-Delete a comment: DELETE /comments/:id
-List all comments: GET /comments
-List all comments for a specific post: GET /posts/:post_id/comments
-List all comments by a specific user: GET /users/:user_id/comments
-
-*/
 const commentRouter = require('express').Router();
 const { createNewComment, retrieveComment, updateComment, deleteComment, listAllComments, listAllCommentsForPost, listAllCommentsByUser } = require('../controllers/commentControllers');
 
@@ -106,6 +93,5 @@ commentRouter.get('/posts/:post_id/comments', listAllCommentsForPost);
 commentRouter.get('/users/:user_id/comments', listAllCommentsByUser);
 
 module.exports = commentRouter;
-
 
 Using the JSON Body, make requests to test all the routes. Also show me the expected response.

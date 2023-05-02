@@ -1,14 +1,3 @@
-/*
-
-Create a new comment: POST /comments
-Retrieve a comment by id: GET /comments/:id
-Update a comment: PUT /comments/:id
-Delete a comment: DELETE /comments/:id
-List all comments: GET /comments
-List all comments for a specific post: GET /posts/:post_id/comments
-List all comments by a specific user: GET /users/:user_id/comments
-
-*/
 const commentRouter = require('express').Router();
 const { createNewComment, retrieveComment, updateComment, deleteComment, listAllComments, listAllCommentsForPost, listAllCommentsByUser } = require('../controllers/commentControllers');
 

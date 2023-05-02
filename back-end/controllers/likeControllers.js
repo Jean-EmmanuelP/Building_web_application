@@ -2,15 +2,6 @@ const createLikeModel = require('../models/likeModel');
 const { sequelize } = require('../config/database');
 const Like = createLikeModel(sequelize);
 
-/* 
-  - createNewlike -> NTR
-  - retrieveLike -> NTR
-  - deleteLike -> NTR
-  - listAllLikes -> NTR
-  - listAllLikesForPost -> NTR
-  - listAllLikesByUser -> NTR
-*/
-
 const createNewLike = async (req, res) => {
   try {
     const like = new Like(req.body);
@@ -22,7 +13,6 @@ const createNewLike = async (req, res) => {
   }
 };
 
-// Retrieve a like by id works but the problem is the id
 const retrieveLike = async (req, res) => {
   try {
     const like = await Like.findByPk(req.params.id);
@@ -35,7 +25,6 @@ const retrieveLike = async (req, res) => {
   }
 };
 
-// Delete a like but problem of id same thing
 const deleteLike = async (req, res) => {
   try {
     const like = await Like.findByPk(req.params.id);
@@ -49,7 +38,6 @@ const deleteLike = async (req, res) => {
   }
 };
 
-// List all likes is working
 const listAllLikes = async (req, res) => {
   try {
     const likes = await Like.findAll();
@@ -59,7 +47,6 @@ const listAllLikes = async (req, res) => {
   }
 };
 
-// List all likes for a specific post
 const listAllLikesForPost = async (req, res) => {
   try {
     const likes = await Like.findAll({ where: { post_id: req.params.post_id } });
@@ -69,7 +56,6 @@ const listAllLikesForPost = async (req, res) => {
   }
 };
 
-// List all likes by a specific user
 const listAllLikesByUser = async (req, res) => {
   try {
     const likes = await Like.findAll({ where: { user_id: req.params.user_id } });

@@ -1,9 +1,5 @@
 const { User, Comment } = require('../config/database');
 
-/* 
-  * -> NTR
-*/
-
 exports.createNewComment = async (req, res) => {
   try {
     const comment = await Comment.create(req.body);

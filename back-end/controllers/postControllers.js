@@ -4,19 +4,6 @@ const Post = createPostModel(sequelize);
 const cloudinary = require('../config/cloudinaryConfig');
 const upload = require('../config/multerConfig');
 
-
-/*
-  todo : 
-
-  - createNewPost -> the title should be the description,
-  the content should be the description.
-  - retrievePost -> working well as expected
-  - updatePost -> NTR
-  - deletePost -> NTR
-  - listAllPosts -> NTR
-  - listAllPostsFromUser -> NTR
-*/
-
 const uploadImageToCloudinary = async (file) => {
   try {
     const result = await cloudinary.uploader.upload(file.path);
@@ -26,7 +13,6 @@ const uploadImageToCloudinary = async (file) => {
     throw new Error('Failed to upload image to Cloudinary');
   }
 };
-
 
 const createNewPost = async (req, res) => {
   upload.single('image')(req, res, async (err) => {
