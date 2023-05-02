@@ -16,28 +16,22 @@ const hashPassword = async (password) => {
 exports.createUser = async (req, res) => {
   try {
     const { email, password, first_name, last_name, username } = req.body;
-
     if (!email || !password || !first_name || !last_name || !username) {
       return res.status(400).json({ error: 'All fields are required' });
     }
-
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
-
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).json({ error: 'Password must be at least 8 characters long, contain at least one letter and one number' });
     }
-
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(409).json({ error: 'User with this email already exists' });
     }
-
     const hashedPassword = await hashPassword(password);
-
     const newUser = await User.create({
       email,
       password: hashedPassword,
@@ -162,7 +156,6 @@ And here is my userRoutes.js:
 const usersRouter = require('express').Router();
 const { auth } = require('../middleware/auth');
 const {createUser, loginUser, getUserById, updateUser, deleteUser, getAllUsers} = require("../controllers/userControllers");
-
 usersRouter.post('/users/signup', createUser);
 usersRouter.post('/users/login', loginUser);
 usersRouter.get('/users/:id', auth, getUserById);

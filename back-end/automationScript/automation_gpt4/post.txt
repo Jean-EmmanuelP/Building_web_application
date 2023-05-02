@@ -3,34 +3,29 @@ const { sequelize } = require('../config/database');
 const createPostModel = require('../models/postModel');
 const Post = createPostModel(sequelize);
 const cloudinary = require('../config/cloudinaryConfig');
-const upload = require('../config/multerConfig');
-
-const uploadImageToCloudinary = async (file) => {
-  try {
-    const result = await cloudinary.uploader.upload(file.path);
-    return result.secure_url;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to upload image to Cloudinary');
-  }
-};
 
 const createNewPost = async (req, res) => {
-  upload.single('image')(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ error: 'Error uploading image' });
+  try {
+    const { user_id } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image provided' });
     }
-    try {
-      const { title, userId } = req.body;
-      const imageUrl = await uploadImageToCloudinary(req.file);
-      const newPost = new Post({ title, content: imageUrl, user_id: parseInt(userId) });
-      await newPost.save();
-      return res.status(201).json(newPost);
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ error: error.message });
-    }
-  });
+    const imageResponse = await cloudinary.uploader.upload(req.file.path, {
+      folder: `posts/${user_id}`,
+      use_filename: true,
+      unique_filename: false,
+      resource_type: 'image',
+    });    
+    const imageUrl = imageResponse.secure_url;
+    const newPost = await Post.create({
+      content: imageUrl,
+      user_id,
+    });
+    res.status(201).json(newPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 const retrievePost = async (req, res) => {
@@ -49,11 +44,9 @@ const updatePost = async (req, res) => {
     where: { id: req.params.id },
     returning: true,
   });
-
   if (updateCount === 0) {
     return res.status(404).json({ message: 'Post not found' });
   }
-
   const updatedPost = updatedPosts[0];
   return res.status(200).json(updatedPost);
 };
@@ -89,8 +82,10 @@ module.exports = {
 And here is my postRoutes.js:
 const postRouter = require('express').Router();
 const { createNewPost, retrievePost, updatePost, deletePost, listAllPosts, listAllPostsFromUser } = require('../controllers/postControllers');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
-postRouter.post('/posts', createNewPost);
+postRouter.post('/posts', upload.single('image'), createNewPost);
 postRouter.get('/posts/:id', retrievePost);
 postRouter.put('/posts/:id', updatePost);
 postRouter.delete('/posts/:id', deletePost);
