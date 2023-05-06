@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import styles from './Login.module.css';
 
 const Login = () => {
   const redirect = useNavigate();
@@ -45,6 +46,7 @@ const Login = () => {
   };
   
   return (
+    <>
     <div className={styles.login}>
       <div className={styles.instagram}></div>
       <form onChange={onChangeSetInputs} className={styles.loginForm}>
@@ -56,6 +58,10 @@ const Login = () => {
       </form>
       <a href="#" className={styles.forgotPass}>Forgot password?</a>
     </div>
+    <div className={styles.signUp}>
+      <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+    </>
   );
 };
 
