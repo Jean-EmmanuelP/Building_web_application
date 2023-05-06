@@ -4,6 +4,7 @@ import React, { useState, useEffect, use } from "react";
 
 // other react components
 import Login from "../Login/Login";
+import SignUp from '../SignUp/SignUp';
 
 // react router
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -32,10 +33,13 @@ function App() {
   });
 
   return (
+    <>
     <Routes>
       <Route path="/" element={isAuth ? <p>Main</p> : <Login />} />
-      <Route path="/signup" element={<p>SignUp</p>} />
+      {/* <Route path="/signup" element={<p>SignUp</p>} /> */}
     </Routes>
+    <SignUp />
+    </>
   );
 }
 
