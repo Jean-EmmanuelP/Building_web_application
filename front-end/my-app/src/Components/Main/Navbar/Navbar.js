@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
@@ -27,7 +27,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink to="/reels" className="navLink">
         <li>
-          <Icon icon="ion:heart-outline" className={styles.navIcon} />
+          <Icon icon="ion:play-circle-outline" className={styles.navIcon} />
           <p>Reels</p>
         </li>
         </NavLink>

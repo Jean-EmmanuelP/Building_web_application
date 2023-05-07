@@ -1,6 +1,6 @@
 // imports css file
 import "./App.css";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 
 // other react components
 import Login from "../Login/Login";

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import styles from './Login.module.css';
@@ -49,17 +49,17 @@ const Login = () => {
     <>
     <div className={styles.login}>
       <div className={styles.instagram}></div>
-      <form onChange={onChangeSetInputs} className={styles.loginForm}>
+      <form onSubmit={onSubmitLogin} onChange={onChangeSetInputs} className={styles.loginForm}>
         <input className={styles.input} type="email" name="email" placeholder="Email" />
         <input className={styles.input} type="password" name="password" placeholder="Password" />
         <button className={styles.button} type="submit" name="login">
           Log in
         </button>
       </form>
-      <a href="#" className={styles.forgotPass}>Forgot password?</a>
+      <Link to="/forgotpassword" className={styles.forgotPass}>Forgot password?</Link>
     </div>
     <div className={styles.signUp}>
-      <p>Don't have an account? <a href="#">Sign up</a></p>
+      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
     </div>
     </>
   );
