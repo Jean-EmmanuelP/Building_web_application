@@ -6,4 +6,25 @@
 
 .Main {
   display: grid;
+  grid-template-columns: 250px 2fr 1fr;
+  grid-template-rows:100px auto;
+  grid-template-areas:
+    "nav stories profile" 
+    "nav post profile";
+}
+
+.Navbar {
+  grid-area: nav;
+}
+
+.Stories {
+  grid-area: stories;
+}
+
+.Post {
+  grid-area: post;
+}
+
+.Profile {
+  grid-area: profile;
 }

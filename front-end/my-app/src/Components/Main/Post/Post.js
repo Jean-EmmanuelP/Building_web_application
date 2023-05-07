@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
-
-import "./Post.css";
+import styles from './Post.module.css';
 
 const Post = () => {
   return (
-    <div className="Post">
+    <div className={styles.Post}>
       <h1>POST</h1>
     </div>
   );

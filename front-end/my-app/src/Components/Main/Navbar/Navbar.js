@@ -16,8 +16,8 @@ const nav = [
 
 const renderNavItems = (items) => {
   return nav.map((item) => (
-    <NavLink to={item.link} classname="navLink">
-      <li>
+    <NavLink to={item.link} className="navLink" key={item.name}>
+      <li >
         <Icon icon={item.icon} className={styles.navIcon} />
         <p>{item.name}</p>
       </li>
