@@ -52,11 +52,11 @@ const SignUp = () => {
     <div className="SignUp">
       <form onSubmit={onSubmitSignUp}>
         <h1>Sign Up</h1>
-        <input onChange={onChangeSetInputs} type="text" name="first_name" />
-        <input onChange={onChangeSetInputs} type="text" name="last_name" />
-        <input onChange={onChangeSetInputs} type="email" name="email" />
-        <input onChange={onChangeSetInputs} type="text" name="username" />
-        <input onChange={onChangeSetInputs} type="password" name="password" />
+        <input onChange={onChangeSetInputs} type="text" name="first_name" placeholder="First name" />
+        <input onChange={onChangeSetInputs} type="text" name="last_name" placeholder="Last name" />
+        <input onChange={onChangeSetInputs} type="email" name="email" placeholder="Email" />
+        <input onChange={onChangeSetInputs} type="text" name="username" placeholder="Username" />
+        <input onChange={onChangeSetInputs} type="password" name="password" placeholder="Password" />
         <button type="submit" name="sign up">
           Sign up
         </button>

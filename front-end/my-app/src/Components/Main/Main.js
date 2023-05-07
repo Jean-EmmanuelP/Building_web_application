@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import "./Main.css";
+import styles from "./Main.module.css";
 
 import Navbar from "./Navbar/Navbar";
 import Post from "./Post/Post";
