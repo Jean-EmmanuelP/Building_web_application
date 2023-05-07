@@ -1,13 +1,11 @@
 .Navbar {
   grid-column: 1;
   grid-row: 1 / span 2;
-  padding: 25px;
-  margin: 10px;
   justify-content: center;
-  align-items:flex-start;
+  align-items: flex-start;
   width: 245px;
-  border-right: 1px solid ;
-  width: fit-content;
+  padding: 12px;
+  border-right: 1px solid rgb(0, 0, 0, 0.12);
 }
 
 ul {
@@ -19,36 +17,37 @@ ul {
 li {
   width: 100%;
   border-radius: 8px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  padding:12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
   list-style: none;
-  transition: .3s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 li:hover {
-  background-color: rgb(0,0,0,0.05);
+  background-color: rgb(0, 0, 0, 0.05);
 }
 
 .navIcon {
   width: 28px;
   height: 28px;
-}
-
-.Navbar li > p {
-  margin-left: 16px;
+  margin-left: 8px;
+  margin-right: 16px;
 }
 
 a {
   text-decoration: none;
-  color: rgb(0,0,0)
+  color: rgb(0, 0, 0);
+  font-size: 1.15rem;
 }
 
 a.active {
-  background-color: rgb(0,0,0,0.05);
+  background-color: rgb(0, 0, 0, 0.05);
 }
 
-a:visited, a:active {
+a:visited,
+a:active {
   color: inherit;
 }

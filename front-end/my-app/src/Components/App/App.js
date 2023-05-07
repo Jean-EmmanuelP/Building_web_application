@@ -1,5 +1,5 @@
 // imports css file
-import "./App.css";
+import styles from "./App.module.css";
 import React, { useState, useEffect } from "react";
 
 // other react components

@@ -1,6 +1,8 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styles from './SignUp.module.css';
 
 const SignUp = () => {
   const redirect = useNavigate();
@@ -49,19 +51,26 @@ const SignUp = () => {
   };
 
   return (
-    <div className="SignUp">
-      <form onSubmit={onSubmitSignUp}>
-        <h1>Sign Up</h1>
-        <input onChange={onChangeSetInputs} type="text" name="first_name" placeholder="First name" />
-        <input onChange={onChangeSetInputs} type="text" name="last_name" placeholder="Last name" />
-        <input onChange={onChangeSetInputs} type="email" name="email" placeholder="Email" />
-        <input onChange={onChangeSetInputs} type="text" name="username" placeholder="Username" />
-        <input onChange={onChangeSetInputs} type="password" name="password" placeholder="Password" />
-        <button type="submit" name="sign up">
+    <>
+    <div className={styles.login}>
+      <div className={styles.instagram}></div>
+      <h1>Sign up to see photos and videos from your friends.</h1>
+      <form onSubmit={onSubmitSignUp} class={styles.signUpForm}>
+        <input className={styles.input} onChange={onChangeSetInputs} type="text" name="first_name" placeholder="First name" />
+        <input className={styles.input} onChange={onChangeSetInputs} type="text" name="last_name" placeholder="Last name" />
+        <input className={styles.input} onChange={onChangeSetInputs} type="email" name="email" placeholder="Email" />
+        <input className={styles.input} onChange={onChangeSetInputs} type="text" name="username" placeholder="Username" />
+        <input className={styles.input} onChange={onChangeSetInputs} type="password" name="password" placeholder="Password" />
+        <p className={styles.finePrint}>By signing up, you agree to our Terms, Privacy Policy and Cookies Policy .</p>
+        <button className={styles.button} type="submit" name="sign up">
           Sign up
         </button>
       </form>
     </div>
+    <div className={styles.logIn}>
+      <p>Have an account? <Link to="/login">Log in</Link></p>
+    </div>
+    </>
   );
 };
 
