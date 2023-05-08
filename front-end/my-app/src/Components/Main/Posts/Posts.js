@@ -1,6 +1,6 @@
 import styles from './Post.module.css';
 
-const Post = () => {
+const Posts = () => {
   return (
     <div className={styles.Post}>
       <h1>POST</h1>
@@ -8,4 +8,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Posts;

@@ -1,7 +1,7 @@
 import styles from "./Main.module.css";
 
 import Navbar from "./Navbar/Navbar";
-import Post from "./Post/Post";
+import Posts from "./Posts/Posts";
 import Stories from "./Stories/Stories"
 import Profile from "./Profile/Profile"
 
@@ -10,7 +10,7 @@ const Main = () => {
     <div className={styles.Main}>
       <Navbar className={styles.Navbar} />
       <Stories className={styles.Stories} />
-      <Post className={styles.Post} />
+      <Posts className={styles.Post} />
       <Profile className={styles.Profile} />
     </div>
   );
