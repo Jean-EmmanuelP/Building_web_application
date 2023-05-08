@@ -1,17 +1,24 @@
-// imports css file
-import styles from "./App.module.css";
 import React, { useState, useEffect } from "react";
 
 // other react components
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Main from "../Main/Main";
-
-// react router
-import { Routes, Route, Navigate } from "react-router-dom";
+import RootLayout from "../../Layouts/RootLayout";
 
 // cookies
 import Cookies from "js-cookie";
+
+// react router
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+
+
 
 function App() {
   // the state variable to be aware of the user's authorization
@@ -32,18 +39,19 @@ function App() {
     }
   });
 
-  return (
-    <>
-      <Routes>
-        <Route
-          path="/"
-          element={isAuth ? <Main /> : <Navigate to="/login" />}
-        />
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={isAuth ? <Main /> : <Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />{" "}
-      </Routes>
-    </>
+        <Route path="/signup" element={<SignUp />} />
+      </Route>
+    )
   );
+
+  return (
+    <RouterProvider router={router} />
+  )
 }
 
 export default App;
