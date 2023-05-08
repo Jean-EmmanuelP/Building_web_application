@@ -1,3 +1,4 @@
 .Stories {
     grid-area: stories;
+    display: none;
 }
