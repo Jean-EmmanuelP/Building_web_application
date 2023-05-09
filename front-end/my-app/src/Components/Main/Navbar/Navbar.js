@@ -16,8 +16,8 @@ const nav = [
 
 const renderNavItems = (items) => {
   return nav.map((item) => (
-    <NavLink to={item.link} className="navLink" key={item.name}>
-      <li >
+    <NavLink to={item.link} className={styles.Navbar} key={item.name}>
+      <li className={styles.Navbar}>
         <Icon icon={item.icon} className={styles.navIcon} />
         <p>{item.name}</p>
       </li>
@@ -28,7 +28,7 @@ const renderNavItems = (items) => {
 const Navbar = () => {
   return (
     <div className={styles.Navbar}>
-      <ul>{renderNavItems()}</ul>
+      <ul className={styles.Navbar}>{renderNavItems()}</ul>
     </div>
   );
 };

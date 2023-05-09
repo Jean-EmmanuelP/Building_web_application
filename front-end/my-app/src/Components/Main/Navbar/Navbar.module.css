@@ -1,4 +1,4 @@
-.Navbar {
+div.Navbar {
   grid-area: nav;
   position: sticky;
   top: 0;
@@ -12,7 +12,7 @@
 }
 
 @media only screen and (width < 768px) {
-  .Navbar {
+  div.Navbar {
     width: 70px;
   }
   li:hover .navIcon {
@@ -24,13 +24,13 @@
   }
 }
 
-ul {
+ul.Navbar {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 1rem;
 }
 
-li {
+li.Navbar {
   width: 100%;
   border-radius: 8px;
   cursor: pointer;
@@ -42,11 +42,11 @@ li {
   transition: 0.1s ease-in-out;
 }
 
-li:hover {
+li.Navbar:hover {
   background-color: rgb(0, 0, 0, 0.05);
 }
 
-li:hover .navIcon {
+li.Navbar:hover .navIcon {
   width: 30px;
   height: 30px;
   margin-top: 0px;
@@ -64,17 +64,17 @@ li:hover .navIcon {
   margin-right: 16px;
 }
 
-a {
+a.Navbar {
   text-decoration: none;
   color: rgb(0, 0, 0);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-a.active {
+a.Navbar.active {
   background-color: rgb(0, 0, 0, 0.05);
 }
 
-a:visited,
-a:active {
+a.Navbar:visited,
+a.Navbar:active {
   color: inherit;
 }

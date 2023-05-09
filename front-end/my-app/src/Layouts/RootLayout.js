@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import styles from './RootLayout.module.css'
+// eslint-disable-next-line no-unused-vars
+import styles from './RootLayout.module.css';
 
 export default function RootLayout() {
     return (

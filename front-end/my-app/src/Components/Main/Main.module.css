@@ -10,12 +10,20 @@
   grid-template-rows: 100px auto;
   grid-template-areas:
     "nav stories profile"
-    "nav post profile";
+    "nav posts profile";
 }
 
 @media only screen and (width < 768px) {
   .Main {
     grid-template-columns: 75px 3fr 1fr;
+  }
+}
+
+@media only screen and (width < 1150px) {
+  .Main {
+    grid-template-areas:
+      "nav posts posts"
+      "nav posts posts";
   }
 }
 
@@ -27,8 +35,8 @@
   grid-area: stories;
 }
 
-.Post {
-  grid-area: post;
+.Posts {
+  grid-area: posts;
 }
 
 .Profile {

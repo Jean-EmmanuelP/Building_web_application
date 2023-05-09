@@ -1,11 +1,46 @@
-import styles from './Post.module.css';
+import styles from "./Posts.module.css";
+import { useSelector } from "react-redux";
+import { selectPosts } from "./postsSlice";
+import { Icon } from "@iconify/react";
 
-const Posts = () => {
+export default function Posts() {
+  const posts = useSelector(selectPosts);
+
   return (
-    <div className={styles.Post}>
-      <h1>POST</h1>
+    <div className={styles.Posts}>
+      <h1>Posts</h1>
+      <ul className={styles.PostList}>
+        {Object.values(posts).map((post) => (
+          <li className={styles.singlePost} key={post.id}>
+            <div className={styles.header}>
+              <img
+                src={post.avatar}
+                className={styles.avatar}
+                alt={`Avatar for ${post.user}`}
+              />
+              <h2>{post.user}</h2>
+            </div>
+            <img src={post.src} alt={post.description} />
+            <ul className={styles.actions}>
+              <li>
+                <Icon icon="ion:heart-outline" className={styles.icon} />
+                {/* Like handler */}
+              </li>
+              <li>
+                <Icon icon="ion:chatbubble-outline" className={styles.icon} />
+                {/* Add comment */}
+              </li>
+              <li>
+                <Icon icon="ion:paper-plane-outline" className={styles.icon} />
+                {/* Share handler */}
+              </li>
+            </ul>
+            <p>
+              {post.user}: {post.caption}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
-
-export default Posts;
+}
