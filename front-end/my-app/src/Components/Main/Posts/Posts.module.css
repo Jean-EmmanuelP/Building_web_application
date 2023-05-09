@@ -3,6 +3,7 @@ div.Posts {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  padding-bottom: 70px;
 }
 
 .singlePost h2 {
@@ -15,17 +16,22 @@ div.Posts {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.12);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .singlePost img {
   width: 100%;
+  border-radius: 3px;
 }
 
 div.header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom:5px;
+  margin-bottom:10px;
+  margin-left: 5px;
   text-transform: lowercase;
 }
 
@@ -52,4 +58,9 @@ img.avatar {
 .icon {
   width: 24px;
   height: 24px;
+}
+
+.footer {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

@@ -21,23 +21,28 @@ export default function Posts() {
               <h2>{post.user}</h2>
             </div>
             <img src={post.src} alt={post.description} />
-            <ul className={styles.actions}>
-              <li>
-                <Icon icon="ion:heart-outline" className={styles.icon} />
-                {/* Like handler */}
-              </li>
-              <li>
-                <Icon icon="ion:chatbubble-outline" className={styles.icon} />
-                {/* Add comment */}
-              </li>
-              <li>
-                <Icon icon="ion:paper-plane-outline" className={styles.icon} />
-                {/* Share handler */}
-              </li>
-            </ul>
-            <p>
-              {post.user}: {post.caption}
-            </p>
+            <div className={styles.footer}>
+              <ul className={styles.actions}>
+                <li>
+                  <Icon icon="ion:heart-outline" className={styles.icon} />
+                  {/* Like handler */}
+                </li>
+                <li>
+                  <Icon icon="ion:chatbubble-outline" className={styles.icon} />
+                  {/* Add comment */}
+                </li>
+                <li>
+                  <Icon
+                    icon="ion:paper-plane-outline"
+                    className={styles.icon}
+                  />
+                  {/* Share handler */}
+                </li>
+              </ul>
+              <p>
+                {post.user}: {post.caption}
+              </p>
+            </div>
           </li>
         ))}
       </ul>

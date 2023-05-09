@@ -11,34 +11,27 @@
   grid-template-areas:
     "nav stories profile"
     "nav posts profile";
+  min-height: calc(100vh - 100px);
 }
 
-@media only screen and (width < 768px) {
+@media only screen and (max-width: 700px) {
   .Main {
-    grid-template-columns: 75px 3fr 1fr;
+    display: block;
+    padding-left: 1px;
+    padding-right: 1px;
   }
 }
 
-@media only screen and (width < 1150px) {
+@media only screen and (min-width: 700px) and (max-width: 815px) {
+  .Main {
+    grid-template-columns: 75px 1fr;
+  }
+}
+
+@media only screen and (min-width: 815px) and (max-width: 1150px) {
   .Main {
     grid-template-areas:
       "nav posts posts"
       "nav posts posts";
   }
-}
-
-.Navbar {
-  grid-area: nav;
-}
-
-.Stories {
-  grid-area: stories;
-}
-
-.Posts {
-  grid-area: posts;
-}
-
-.Profile {
-  grid-area: profile;
 }

@@ -1,3 +1,9 @@
 .Profile {
     grid-area: profile;
 }
+
+@media only screen and (width < 1150px) {
+    .Profile {
+        display: none;
+    }
+}
