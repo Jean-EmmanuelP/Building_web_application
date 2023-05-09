@@ -21,9 +21,9 @@ export const postSlice = createSlice({
     posts: {
       1: {
         id: 1,
-        user: "James",
+        user: "Jean-Emmanuel",
         avatar: avatar,
-        src: "https://cdn.cnn.com/cnnnext/dam/assets/210120064324-restricted-butterflies-clap-intl-scli-super-tease.jpg",
+        src: "https://source.unsplash.com/pp_oXEb2H48",
         caption: "Sample caption",
         comments: comments,
         likes: likes,
@@ -39,7 +39,7 @@ export const postSlice = createSlice({
       },
       3: {
         id: 3,
-        user: "James",
+        user: "Max",
         avatar: avatar,
         src: "https://source.unsplash.com/Hyt-Ixm3pwA",
         caption: "Sample caption",

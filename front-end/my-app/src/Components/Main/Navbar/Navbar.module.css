@@ -7,13 +7,16 @@ div.Navbar {
   align-items: flex-start;
   width: 245px;
   min-height: 100vh;
-  padding: 12px;
+  padding-top: 4rem;
+  padding-left: 12px;
+  padding-right: 12px;
   border-right: 1px solid rgb(0, 0, 0, 0.12);
 }
 
 @media only screen and (min-width: 700px) and (max-width: 815px) {
   div.Navbar {
     width: 70px;
+
   }
   li:hover .navIcon {
     margin-left: 8px !important;
@@ -34,6 +37,7 @@ div.Navbar {
     bottom:0px;
     left:0px;
     right:0;
+    padding: 12px;
     min-height: 0vh;
     border-right: 0;
     border-top: 1px solid rgb(0, 0, 0, 0.12);
