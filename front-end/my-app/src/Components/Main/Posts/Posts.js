@@ -8,7 +8,6 @@ export default function Posts() {
 
   return (
     <div className={styles.Posts}>
-      <h1>Posts</h1>
       <ul className={styles.PostList}>
         {Object.values(posts).map((post) => (
           <li className={styles.singlePost} key={post.id}>
@@ -40,8 +39,17 @@ export default function Posts() {
                 </li>
               </ul>
               <p>
-                {post.user}: {post.caption}
+              <span class={styles.user}>{post.user}</span> {post.caption}
               </p>
+              <ul className={styles.comments}>
+                {Object.values(post.comments).map((comment) => (
+                  <li className={styles.singleComment} key={comment.id}>
+                    <p>
+                      <span class={styles.commentUser}>{comment.user}</span> {comment.comment}
+                    </p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </li>
         ))}

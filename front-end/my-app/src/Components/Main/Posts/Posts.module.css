@@ -63,4 +63,17 @@ img.avatar {
 .footer {
   margin-left: 1rem;
   margin-right: 1rem;
+  text-align: left;
+}
+
+.footer p {
+  line-height: 1.5rem;
+}
+
+.footer ul {
+  list-style-type: none;
+}
+
+.user, .commentUser {
+  font-weight: 600;
 }

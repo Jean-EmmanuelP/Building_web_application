@@ -1,7 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-const comments = ["First comment", "Second Comment"];
+const comments = {
+  1: {
+    id: 1,
+    user: "Commenter",
+    comment: "First comment",
+  },
+  2: {
+    id: 2,
+    user: "Second commenter",
+    comment: "Second Comment",
+  },
+};
 const likes = [5];
 const avatar = "data/profile_images/profile-1.png";
 
