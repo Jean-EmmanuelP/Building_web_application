@@ -39,13 +39,13 @@ export default function Posts() {
                 </li>
               </ul>
               <p>
-              <span class={styles.user}>{post.user}</span> {post.caption}
+              <span className={styles.user}>{post.user}</span> {post.caption}
               </p>
               <ul className={styles.comments}>
                 {Object.values(post.comments).map((comment) => (
                   <li className={styles.singleComment} key={comment.id}>
                     <p>
-                      <span class={styles.commentUser}>{comment.user}</span> {comment.comment}
+                      <span className={styles.commentUser}>{comment.user}</span> {comment.comment}
                     </p>
                   </li>
                 ))}

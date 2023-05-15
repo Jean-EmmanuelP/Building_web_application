@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Main from "../Main/Main";
+import Create from "../Main/Create/Create";
 import RootLayout from "../../Layouts/RootLayout";
 
 // cookies
@@ -45,6 +46,7 @@ function App() {
         <Route index element={isAuth ? <Main /> : <Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/create" element={<Create />} />
       </Route>
     )
   );

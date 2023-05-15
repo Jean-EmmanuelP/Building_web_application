@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import styles from './Login.module.css';
 
 const Login = () => {
-  const redirect = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
     password: ""

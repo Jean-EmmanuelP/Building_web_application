@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 
 const comments = {
   1: {
@@ -13,7 +14,22 @@ const comments = {
   },
 };
 const likes = [5];
-const avatar = "data/profile_images/profile-1.png";
+
+/* fetching posts looks something like: 
+
+export const fetchPosts = createAsyncThunk(
+  "postsSlice/fetchPosts",
+  async (_, thunkAPI) => {
+    try {
+      const response = await fetch('http://localhost:4001/api/posts');
+      return await response.json();
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+)
+
+*/
 
 export const postSlice = createSlice({
   name: "postsSlice",
@@ -22,7 +38,7 @@ export const postSlice = createSlice({
       1: {
         id: 1,
         user: "Jean-Emmanuel",
-        avatar: avatar,
+        avatar: "data/profile_images/profile-1.png",
         src: "https://source.unsplash.com/pp_oXEb2H48",
         caption: "Sample caption",
         comments: comments,
@@ -31,7 +47,7 @@ export const postSlice = createSlice({
       2: {
         id: 2,
         user: "James",
-        avatar: avatar,
+        avatar: "data/profile_images/profile-8.png",
         src: "https://source.unsplash.com/i9Q9bc-WgfE",
         caption: "Sample caption",
         comments: comments,
@@ -40,7 +56,7 @@ export const postSlice = createSlice({
       3: {
         id: 3,
         user: "Max",
-        avatar: avatar,
+        avatar: "data/profile_images/profile-2.png",
         src: "https://source.unsplash.com/Hyt-Ixm3pwA",
         caption: "Sample caption",
         comments: comments,
@@ -49,6 +65,25 @@ export const postSlice = createSlice({
     },
   },
   reducers: {},
+  /* extraReducers for fetching posts: 
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.posts = [];
+        state.loading = "loading";
+      })
+      .addCase(fetchPosts.fulfilled, (state, { payload }) => {
+        state.posts = payload;
+        state.loading = "loaded";
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.loading = "error";
+        state.error = action.error.message;
+      })
+  }
+
+  */
 });
 
 export const selectPosts = (state) => state.posts.posts;
