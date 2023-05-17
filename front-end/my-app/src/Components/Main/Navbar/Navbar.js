@@ -1,7 +1,8 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import styles from "./Navbar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const nav = [
   { name: "Home", icon: "ion:home", link: "/" },
@@ -26,9 +27,26 @@ const renderNavItems = () => {
 };
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("id");
+    Cookies.remove("first_name");
+    Cookies.remove("last_name");
+    Cookies.remove("email");
+    navigate("/login");
+  };
   return (
     <div className={styles.Navbar}>
-      <ul className={styles.Navbar}>{renderNavItems()}</ul>
+      <ul className={styles.Navbar}>
+        {renderNavItems()}
+        <li className={styles.logout}>
+          <button className={styles.logoutButton} onClick={logout}>
+            <Icon icon="ion:log-out-outline" className={styles.navIcon} />
+            <p>Logout</p>
+          </button>
+        </li>
+      </ul>
     </div>
   );
 };

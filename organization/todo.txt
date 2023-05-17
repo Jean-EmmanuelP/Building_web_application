@@ -1,9 +1,13 @@
 // signup
+  -- Display signup form error helpers
 // login
+  -- Redirect on login
+  -- Display login form error helpers
 // post
 // comment
 // like
 // search
+// log out
 // ---------------
 
 // messages

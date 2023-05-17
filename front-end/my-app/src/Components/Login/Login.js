@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { redirect } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import styles from './Login.module.css';
 
 const Login = () => {
+
+  const navigate = useNavigate();
+  // if (Cookies.get("token")) {
+  //   navigate("/");
+  // }
   const [inputs, setInputs] = useState({
     email: "",
     password: ""
   });
 
-  const onChangeSetInputs = (e) => {
+   const onChangeSetInputs = (e) => {
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
-  const onSubmitLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { email, password } = inputs;
@@ -38,7 +42,7 @@ const Login = () => {
         Cookies.set("first_name", parsedRes.user.first_name);
         Cookies.set("last_name", parsedRes.user.last_name);
         Cookies.set("email", parsedRes.user.email);
-        redirect("/");
+        navigate('/');
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +53,7 @@ const Login = () => {
     <>
     <div className={styles.login}>
       <div className={styles.instagram}></div>
-      <form onSubmit={onSubmitLogin} onChange={onChangeSetInputs} className={styles.loginForm}>
+      <form onSubmit={handleSubmit} onChange={onChangeSetInputs} className={styles.loginForm}>
         <input className={styles.input} type="email" name="email" placeholder="Email" />
         <input className={styles.input} type="password" name="password" placeholder="Password" />
         <button className={styles.button} type="submit" name="login">

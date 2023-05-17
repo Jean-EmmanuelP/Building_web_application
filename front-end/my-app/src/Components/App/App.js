@@ -23,14 +23,14 @@ import {
 
 function App() {
   // the state variable to be aware of the user's authorization
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
   // changes the status of the user's authorization
   const setAuth = (boolean) => {
     setIsAuth(boolean);
   };
 
-  // each time after render, useEffect checks if there is token so the user can utilize the website further
+  // each time after render, useEffect checks if there is token
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
@@ -43,7 +43,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
-        <Route index element={isAuth ? <Main /> : <Navigate to="/login" />} />
+        <Route index element={isAuth ? <Main /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/create" element={<Create />} />
